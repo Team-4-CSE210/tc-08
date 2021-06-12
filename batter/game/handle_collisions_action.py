@@ -22,17 +22,17 @@ class HandleCollisionsAction(Action):
     def _ball_wall_collision(cast):
         ball = cast["ball"][0] # there's only one
         paddle = cast["paddle"][0] # there's only one
-        wall = cast["wall"]
-        for side in wall:
-            if ball.get_position().get_x().equals(side.get_position().get_x()):
-                #change direction of ball
-                point = ball.get_velocity()
-                newVel = Point(-point.get_x(), point.get_y())
-                ball.set_velocity(newVel)
+        leftWall = 0
+        rightWall = constants.MAX_X
+        if ball.get_position().get_x() <= rightWall or ball.get_position().get_x() >= leftWall:
+            #change direction of ball
+            point = ball.get_velocity()
+            newVel = Point(-point.get_x(), point.get_y())
+            ball.set_velocity(newVel)
             
-            if paddle.get_position().get_x().equals(side.get_position().get_x()):
-                #don't let paddle pass
-                point = paddle.get_position()
-                paddle.set_possition(point)
+        if paddle.get_position().get_x() <= rightWall or paddle.get_position().get_x() >= leftWall:
+            #don't let paddle pass
+            point = paddle.get_position()
+            paddle.set_position(point)
 
 
