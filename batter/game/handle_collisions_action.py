@@ -12,6 +12,7 @@ class HandleCollisionsAction(Action):
 
     def execute(self, cast):
         """Executes the action using the given actors.
+        
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
@@ -21,8 +22,9 @@ class HandleCollisionsAction(Action):
 
     def _ball_wall_collision(self, cast):
         """Handles the times when the ball or the paddle hits either wall.
-            Args:
-                cast (dict): The game actors {key: tag, value: list}.
+
+        Args:
+            cast (dict): The game actors {key: tag, value: list}.
         """
         ball = cast["ball"][0] # there's only one
         paddle = cast["paddle"][0] # there's only one
@@ -42,8 +44,9 @@ class HandleCollisionsAction(Action):
 
     def _ball_ceiling_collision(self, cast):
         """Handles the times when the ball hits the ceiling.
-            Args:
-                cast (dict): The game actors {key: tag, value: list}.
+        
+        Args:
+            cast (dict): The game actors {key: tag, value: list}.
         """
         ball = cast["ball"][0] # there's only one
         ceiling = constants.MAX_Y
@@ -53,6 +56,7 @@ class HandleCollisionsAction(Action):
             point = ball.get_velocity()
             newVel = Point(point.get_x(), -point.get_y())
             ball.set_velocity(newVel)
+
 
     def _ball_paddle_collision(self, cast):
         """Handles the collision of the ball hitting the paddle.
