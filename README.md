@@ -41,3 +41,4 @@ root                    (project root folder)
 ---
 * # TODO: Add your names and emails here
 Kelton Green: gre16027@byui.edu
+Agnes Haymore: hay19016@byui.edu
