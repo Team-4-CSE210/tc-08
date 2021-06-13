@@ -20,17 +20,23 @@ class HandleCollisionsAction(Action):
         
 
     def _ball_wall_collision(cast):
+        """Handles the times when the ball or the paddle hits either wall.
+
+            Args:
+                cast (dict): The game actors {key: tag, value: list}.
+
+        """
         ball = cast["ball"][0] # there's only one
         paddle = cast["paddle"][0] # there's only one
         leftWall = 0
         rightWall = constants.MAX_X
-        if ball.get_position().get_x() <= rightWall or ball.get_position().get_x() >= leftWall:
+        if ball.get_position().get_x() >= rightWall or ball.get_position().get_x() <= leftWall:
             #change direction of ball
             point = ball.get_velocity()
             newVel = Point(-point.get_x(), point.get_y())
             ball.set_velocity(newVel)
             
-        if paddle.get_position().get_x() <= rightWall or paddle.get_position().get_x() >= leftWall:
+        if paddle.get_position().get_x() >= rightWall or paddle.get_position().get_x() <= leftWall:
             #don't let paddle pass
             point = paddle.get_position()
             paddle.set_position(point)
