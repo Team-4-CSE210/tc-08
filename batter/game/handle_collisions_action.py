@@ -34,7 +34,7 @@ class HandleCollisionsAction(Action):
         ball = cast["ball"][0]  # there's only one
         paddle = cast["paddle"][0]  # there's only one
         leftWall = 0
-        rightWall = constants.MAX_X
+        rightWall = constants.MAX_X - 1
         if (
             ball.get_position().get_x() >= rightWall
             or ball.get_position().get_x() <= leftWall
@@ -126,7 +126,7 @@ class HandleCollisionsAction(Action):
                 # (AH) then exit loop because loop has changed after pop.
                 bricks.pop(index)
                 break
-                
+
     def _ball_floor_collision(self, cast):
         """Handles the collision of the ball hitting the floor.
 
@@ -134,6 +134,6 @@ class HandleCollisionsAction(Action):
             cast (dict): the game actors {key: tag, value: list}.
         """
         p_ball_y = cast["ball"][0].get_position().get_y()
-        if (p_ball_y > MAX_Y + 2):
+        if p_ball_y > MAX_Y + 2:
             sleep(2)
             sys.exit()
