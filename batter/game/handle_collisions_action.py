@@ -19,9 +19,7 @@ class HandleCollisionsAction(Action):
         self._ball_ceiling_collision(cast)
         self._ball_paddle_collision(cast)
 
-        
-
-    def _ball_wall_collision(cast):
+    def _ball_wall_collision(self, cast):
         """Handles the times when the ball or the paddle hits either wall.
             Args:
                 cast (dict): The game actors {key: tag, value: list}.
@@ -42,7 +40,7 @@ class HandleCollisionsAction(Action):
             paddle.set_position(point)
 
 
-    def _ball_ceiling_collision(cast):
+    def _ball_ceiling_collision(self, cast):
         """Handles the times when the ball hits the ceiling.
             Args:
                 cast (dict): The game actors {key: tag, value: list}.
@@ -66,5 +64,5 @@ class HandleCollisionsAction(Action):
         paddle = cast["paddle"][0] 
         if ball.get_position().equals(paddle.get_position()):
             point = ball.get_velocity()
-            newVel = Point(point.get_x(), -point.get_y())
+            newVel = Point(point.get_x(), point.get_y())
             ball.set_velocity(newVel)
