@@ -2,6 +2,9 @@ from game.point import Point
 import random
 from game import constants
 from game.action import Action
+from game.constants import MAX_Y
+from time import sleep
+import sys
 
 
 class HandleCollisionsAction(Action):
@@ -21,6 +24,7 @@ class HandleCollisionsAction(Action):
         self._ball_ceiling_collision(cast)
         self._ball_paddle_collision(cast)
         self._ball_brick_collision(cast)
+        self._ball_floor_collision(cast)
 
     def _ball_wall_collision(self, cast):
         """Handles the times when the ball or the paddle hits either wall.
@@ -124,3 +128,15 @@ class HandleCollisionsAction(Action):
                 # (AH) then exit loop because loop has changed after pop.
                 bricks.pop(index)
                 break
+                
+    def _ball_floor_collision(self, cast):
+        """Handles the collision of the ball hitting the floor.
+
+        Args:
+            cast (dict): the game actors {key: tag, value: list}.
+        """
+        p_ball_y = cast["ball"][0].get_position().get_y()
+        if (p_ball_y > MAX_Y + 2):
+            sleep(2)
+            sys.exit()
+
