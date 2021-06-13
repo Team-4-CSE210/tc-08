@@ -9,6 +9,7 @@ import sys
 
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
+
     Stereotype:
         Controller
     """
@@ -83,7 +84,8 @@ class HandleCollisionsAction(Action):
 
             # (AH) Case where ball bounced from left at an angle.
             # (AH) Ball bounce in opposite direction, both horizontal+vertical.
-            if point.get_x() > 0 and point.get_y() > 0:
+
+            if point.get_x() > 0 and point.get_y() < 0:
                 opp_vel = Point(point.get_x(), -point.get_y())
                 ball.set_velocity(opp_vel)
 
@@ -148,6 +150,8 @@ class HandleCollisionsAction(Action):
         p_ball_y = cast["ball"][0].get_position().get_y()
         # if p_ball_y > MAX_Y + 2:
         # (AH) up to but not including MAX_Y
+
         if p_ball_y > MAX_Y:
+
             sleep(2)
             sys.exit()
