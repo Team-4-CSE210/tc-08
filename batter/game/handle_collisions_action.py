@@ -9,7 +9,7 @@ import sys
 
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
-
+    
     Stereotype:
         Controller
     """
@@ -28,7 +28,6 @@ class HandleCollisionsAction(Action):
 
     def _ball_wall_collision(self, cast):
         """Handles the times when the ball or the paddle hits either wall.
-
         Args:
             cast (dict): The game actors {key: tag, value: list}.
         """
@@ -70,7 +69,6 @@ class HandleCollisionsAction(Action):
 
     def _ball_paddle_collision(self, cast):
         """Handles the collision of the ball hitting the paddle.
-
         Args:
             cast (dict): the game actors {key: tag, value: list}.
         """
@@ -139,4 +137,3 @@ class HandleCollisionsAction(Action):
         if (p_ball_y > MAX_Y + 2):
             sleep(2)
             sys.exit()
-
