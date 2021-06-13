@@ -16,6 +16,7 @@ class HandleCollisionsAction(Action):
             cast (dict): The game actors {key: tag, value: list}.
         """
         self._ball_wall_collision(cast)
+        self._ball_cieling_collision(cast)
 
         
 
@@ -40,5 +41,22 @@ class HandleCollisionsAction(Action):
             #don't let paddle pass
             point = paddle.get_position()
             paddle.set_position(point)
+
+
+    def _ball_ceiling_collision(cast):
+        """Handles the times when the ball hits the ceiling.
+
+            Args:
+                cast (dict): The game actors {key: tag, value: list}.
+
+        """
+        ball = cast["ball"][0] # there's only one
+        ceiling = constants.MAX_Y
+
+        if ball.get_position().get_y() >= ceiling:
+            #change direction of ball
+            point = ball.get_velocity()
+            newVel = Point(point.get_x(), -point.get_y())
+            ball.set_velocity(newVel)
 
 
