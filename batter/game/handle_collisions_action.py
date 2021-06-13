@@ -2,6 +2,9 @@ from game.point import Point
 import random
 from game import constants
 from game.action import Action
+from game.constants import MAX_Y
+from time import sleep
+import sys
 
 class HandleCollisionsAction(Action):
     """A code template for handling collisions. The responsibility of this class of objects is to update the game state when actors collide.
@@ -70,3 +73,14 @@ class HandleCollisionsAction(Action):
             point = ball.get_velocity()
             newVel = Point(point.get_x(), point.get_y())
             ball.set_velocity(newVel)
+
+    def _ball_floor_collision(cast):
+        """Handles the collision of the ball hitting the floor.
+
+        Args:
+            cast (dict): the game actors {key: tag, value: list}.
+        """
+        p_ball_y = cast["ball"][0].get_position().get_y()
+        if (p_ball_y > MAX_Y + 2):
+            sleep(2)
+            sys.exit()
