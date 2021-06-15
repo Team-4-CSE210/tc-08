@@ -2,7 +2,6 @@ from game.point import Point
 import random
 from game import constants
 from game.action import Action
-from game.constants import MAX_Y
 from time import sleep
 import sys
 
@@ -78,22 +77,32 @@ class HandleCollisionsAction(Action):
         """
         ball = cast["ball"][0]
         paddle = cast["paddle"][0]
-        if ball.get_position().equals(paddle.get_position()):
-            point = ball.get_velocity()
-            # newVel = Point(point.get_x(), point.get_y())
-            # ball.set_velocity(newVel)
-            # (AH) ball should bounce off paddle.
 
-            # (AH) Case where ball bounced from left at an angle.
-            # (AH) Ball bounce in opposite direction, both horizontal+vertical.
-            if point.get_x() > 0 and point.get_y() < 0:
-                opp_vel = Point(point.get_x(), -point.get_y())
-                ball.set_velocity(opp_vel)
+        # (AH) cannot use paddle.get_position() because paddle not a pt.
+        # if ball.get_position().equals(paddle.get_position()):
+        #   point = ball.get_velocity()
+        #   newVel = Point(point.get_x(), point.get_y())
+        #   ball.set_velocity(newVel)
+        #   (AH) ball should bounce off paddle.
 
-            # (AH) Case where ball bounced from right at an angle.
-            # (AH) Ball bounce in opposite direction, both horizontal+vertical.
-            elif point.get_x() < 0 and point.get_y() > 0:
-                opp_vel = Point(point.get_x(), -point.get_y())
+        # (AH edited MVL).
+        paddle_pt = paddle.get_position()
+        paddle_pt_x = paddle_pt.get_x()
+        paddle_pt_y = paddle_pt.get_y()
+        ball_vel = ball.get_velocity()
+
+        # (AH) check if ball and paddle on same y-coord.
+        if ball.get_position().get_y() == paddle_pt_y:
+
+            # (AH) check if ball is between left and right edges of paddle.
+            if (
+                paddle_pt_x
+                <= ball.get_position().get_x()
+                <= paddle_pt_x + constants.LEN_PADDLE - 1
+            ):
+
+                # (AH) change ball velocity to opposite y-direction.
+                opp_vel = Point(ball_vel.get_x(), -ball_vel.get_y())
                 ball.set_velocity(opp_vel)
 
     def _ball_brick_collision(self, cast):
@@ -118,7 +127,7 @@ class HandleCollisionsAction(Action):
             if ball.get_position().equals(brick.get_position()):
 
                 # (AH) Conditional block:
-                # (AH) Ball deciding direction to bounce == 2 cases.
+                # (AH) Ball deciding direction to bounce == 3 cases.
                 point = ball.get_velocity()
 
                 # (AH) Case where ball bounced straight up.
@@ -151,8 +160,8 @@ class HandleCollisionsAction(Action):
             cast (dict): the game actors {key: tag, value: list}.
         """
         p_ball_y = cast["ball"][0].get_position().get_y()
-        # if p_ball_y > MAX_Y + 2:
-        # (AH) up to but not including MAX_Y
-        if p_ball_y > MAX_Y - 1:
+        # if p_ball_y > constants.MAX_Y + 2:
+        # (AH) up to but not including constants.MAX_Y
+        if p_ball_y > constants.MAX_Y - 1:
             sleep(2)
             sys.exit()
